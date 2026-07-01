@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Historcle icon">
+  <rect width="64" height="64" rx="14" fill="#090c0d"/>
+  <circle cx="32" cy="32" r="22" fill="#102421" stroke="#39d7bb" stroke-width="2"/>
+  <path d="M14 32h36M32 10c-8 8-8 36 0 44M32 10c8 8 8 36 0 44M18 20c9 5 19 5 28 0M18 44c9-5 19-5 28 0" fill="none" stroke="#d8fff5" stroke-width="1.5" opacity=".72"/>
+  <path d="M40 19l4 11-10 5-4-9z" fill="#f0b65a"/>
+  <circle cx="41" cy="25" r="3.5" fill="#ff5a5f"/>
+</svg>
