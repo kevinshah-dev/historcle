@@ -1,6 +1,38 @@
+# macOS
 .DS_Store
-node_modules
-.next
-out
-.playwright-cli
-tsconfig.tsbuildinfo
+
+# Dependencies
+node_modules/
+
+# Next.js and static export output
+.next/
+out/
+
+# Cloudflare/local deployment tooling
+.wrangler/
+.dev.vars
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Tests, coverage, and browser automation artifacts
+coverage/
+test-results/
+playwright-report/
+.playwright-cli/
+output/
+
+# TypeScript/build cache
+*.tsbuildinfo
+
+# Generated repo snapshots
+repomix-output.xml

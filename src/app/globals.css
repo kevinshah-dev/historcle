@@ -313,6 +313,12 @@ input:focus-visible {
   position: relative;
   width: min(100%, 720px);
   aspect-ratio: 1;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 46% 43%, rgba(57, 215, 187, 0.08), transparent 45%),
+    radial-gradient(circle at center, rgba(2, 5, 5, 0) 46%, rgba(2, 5, 5, 0.58) 82%);
 }
 
 .globe-loading {
@@ -324,33 +330,63 @@ input:focus-visible {
   font-weight: 900;
 }
 
-.globe-svg {
-  position: relative;
+.globe-canvas-host {
+  position: absolute;
+  inset: 0;
   z-index: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.globe-canvas,
+.globe-label-renderer {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.globe-canvas {
   cursor: grab;
   touch-action: none;
 }
 
-.globe-svg:active {
+.globe-canvas:active {
   cursor: grabbing;
+}
+
+.globe-label-renderer {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.globe-depth-cue {
+  position: absolute;
+  inset: 4%;
+  z-index: 2;
+  border-radius: 999px;
+  box-shadow:
+    inset -28px -34px 74px rgba(1, 4, 5, 0.38),
+    inset 20px 18px 58px rgba(142, 246, 223, 0.06),
+    0 0 70px rgba(57, 215, 187, 0.12);
+  pointer-events: none;
 }
 
 .globe-zoom-controls {
   position: absolute;
   top: 14px;
   right: 14px;
-  z-index: 2;
+  z-index: 4;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid rgba(216, 255, 245, 0.13);
   border-radius: 8px;
   background: rgba(5, 10, 10, 0.74);
   padding: 6px;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.26);
+  box-shadow:
+    0 0 0 1px rgba(216, 255, 245, 0.13),
+    0 14px 36px rgba(0, 0, 0, 0.26);
   backdrop-filter: blur(14px);
 }
 
@@ -359,22 +395,25 @@ input:focus-visible {
   width: 34px;
   height: 34px;
   place-items: center;
-  border: 1px solid rgba(237, 248, 244, 0.1);
+  border: 0;
   border-radius: 6px;
   background: rgba(237, 248, 244, 0.06);
   color: var(--text);
   cursor: pointer;
   transition:
-    border-color 160ms ease,
+    transform 160ms ease,
     background 160ms ease,
     color 160ms ease,
     opacity 160ms ease;
 }
 
 .globe-zoom-button:hover:not(:disabled) {
-  border-color: rgba(142, 246, 223, 0.38);
   background: rgba(57, 215, 187, 0.14);
   color: var(--teal-2);
+}
+
+.globe-zoom-button:active:not(:disabled) {
+  transform: scale(0.96);
 }
 
 .globe-zoom-button:disabled {
@@ -391,68 +430,42 @@ input:focus-visible {
   text-align: center;
 }
 
-.globe-ocean {
-  fill: url("#historcleOcean");
-  stroke: rgba(142, 246, 223, 0.44);
-  stroke-width: 1.5;
-}
-
-.globe-grid {
-  fill: none;
-  stroke: rgba(216, 255, 245, 0.14);
-  stroke-width: 0.7;
-}
-
-.globe-land path {
-  fill: rgba(97, 132, 118, 0.55);
-  stroke: rgba(216, 255, 245, 0.16);
-  stroke-width: 0.45;
-  transition: fill 160ms ease;
-}
-
-.globe-svg:hover .globe-land path {
-  fill: rgba(102, 151, 133, 0.65);
-}
-
-.globe-reveal-line {
-  fill: none;
-  stroke: var(--amber);
-  stroke-dasharray: 7 7;
-  stroke-linecap: round;
-  stroke-width: 2.3;
-}
-
-.globe-marker {
-  filter: url("#markerGlow");
+.globe-marker-label {
   pointer-events: none;
-}
-
-.globe-marker circle:first-child {
-  opacity: 0.24;
-}
-
-.globe-marker circle:last-of-type {
-  stroke: #06100f;
-  stroke-width: 1.5;
-}
-
-.globe-marker text {
-  paint-order: stroke;
-  fill: var(--text);
+  border-radius: 6px;
+  background: rgba(5, 8, 8, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 8px 20px rgba(0, 0, 0, 0.3);
+  color: var(--text);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 0.61rem;
   font-weight: 900;
-  stroke: rgba(5, 7, 7, 0.82);
-  stroke-width: 4px;
-  text-anchor: middle;
+  line-height: 1;
+  max-width: 165px;
+  opacity: 1;
+  overflow: hidden;
+  padding: 5px 7px;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  transform: translateY(-3px);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+  white-space: nowrap;
 }
 
-.globe-marker-guess circle {
-  fill: var(--amber);
+.globe-marker-label.is-hidden {
+  opacity: 0;
+  transform: translateY(2px);
 }
 
-.globe-marker-answer circle {
-  fill: var(--red);
+.globe-marker-label-guess {
+  color: var(--amber);
+}
+
+.globe-marker-label-answer {
+  color: #ffb5b7;
 }
 
 .globe-fallback {
