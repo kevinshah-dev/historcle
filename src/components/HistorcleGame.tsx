@@ -5,9 +5,9 @@ import {
   CalendarDays,
   CheckCircle2,
   Compass,
+  ExternalLink,
   LocateFixed,
   MapPin,
-  Trophy,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { ClerkAuthControls } from "@/components/ClerkAuthControls";
@@ -17,7 +17,6 @@ import { getNewYorkDateKey } from "@/lib/daily";
 import {
   formatMiles,
   getAverageDistance,
-  getPerformanceLabel,
   getTotalScore,
   MAX_TOTAL_SCORE,
 } from "@/lib/geo";
@@ -34,6 +33,22 @@ import {
 import { loadDailyGame, saveDailyGame } from "@/lib/storage";
 import { useScoreSubmission } from "@/lib/statsRecorder";
 import type { ConfirmedAnswer, HistorcleQuestion, StoredHistorcleGame } from "@/types/historcle";
+
+const CENOUGH_GAMES_URL = "https://cenough.games";
+const HISTORCLE_URL = "https://historcle.cenough.games";
+
+function BrandMark() {
+  return (
+    <div className="brand-mark" aria-label="CloseEnough Historcle">
+      <a href={CENOUGH_GAMES_URL} className="brand-home-link">
+        CloseEnough
+      </a>
+      <a href={HISTORCLE_URL} className="brand-game-link">
+        Historcle
+      </a>
+    </div>
+  );
+}
 
 function loadOrCreateState(date: string): StoredHistorcleGame {
   const saved = loadDailyGame(date);
@@ -81,10 +96,7 @@ function ResultsScreen({
   return (
     <main className="result-shell">
       <nav className="top-nav" aria-label="Account">
-        <a href="https://cenough.games" className="brand-mark">
-          <span>CloseEnough</span>
-          <strong>Historcle</strong>
-        </a>
+        <BrandMark />
         <ClerkAuthControls />
       </nav>
 
@@ -93,11 +105,13 @@ function ResultsScreen({
           <p className="small-label">Historcle #{state.puzzleNumber}</p>
           <h1 id="final-title">{totalScore.toLocaleString()}</h1>
           <p>out of {MAX_TOTAL_SCORE.toLocaleString()}</p>
-          <div className="performance-label">
-            <Trophy aria-hidden="true" size={20} />
-            {getPerformanceLabel(totalScore)}
+          <div className="result-actions">
+            <ShareButton text={shareText} />
+            <a href={CENOUGH_GAMES_URL} className="games-link">
+              Play More Games at cenough.games
+              <ExternalLink aria-hidden="true" size={18} />
+            </a>
           </div>
-          <ShareButton text={shareText} />
         </div>
 
         <div className="summary-metrics" aria-label="Score summary">
@@ -263,10 +277,7 @@ export function HistorcleGame() {
   return (
     <main className="game-shell">
       <nav className="top-nav" aria-label="Account">
-        <a href="https://cenough.games" className="brand-mark">
-          <span>CloseEnough</span>
-          <strong>Historcle</strong>
-        </a>
+        <BrandMark />
         <ClerkAuthControls />
       </nav>
 

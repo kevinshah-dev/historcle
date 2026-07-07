@@ -113,13 +113,23 @@ input:focus-visible {
   min-height: 40px;
   align-items: center;
   gap: 10px;
+  width: fit-content;
   color: var(--muted);
   font-family: var(--font-display);
   font-size: 0.9rem;
   font-weight: 800;
 }
 
-.brand-mark strong {
+.brand-home-link {
+  color: var(--muted);
+  transition: color 160ms ease;
+}
+
+.brand-home-link:hover {
+  color: var(--text);
+}
+
+.brand-game-link {
   display: inline-flex;
   min-height: 32px;
   align-items: center;
@@ -129,6 +139,16 @@ input:focus-visible {
   color: var(--teal-2);
   padding: 0 11px;
   font-size: 0.82rem;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.brand-game-link:hover {
+  border-color: rgba(142, 246, 223, 0.72);
+  background: rgba(57, 215, 187, 0.16);
+  color: var(--text);
 }
 
 .clerk-auth-controls {
@@ -140,7 +160,8 @@ input:focus-visible {
 
 .auth-button,
 .share-button,
-.primary-action {
+.primary-action,
+.games-link {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
@@ -163,7 +184,8 @@ input:focus-visible {
 
 .auth-button:hover,
 .share-button:hover,
-.primary-action:hover {
+.primary-action:hover,
+.games-link:hover {
   transform: translateY(-1px);
   background: var(--teal-2);
 }
@@ -786,22 +808,18 @@ input:focus-visible {
   font-weight: 850;
 }
 
-.performance-label {
-  display: inline-flex;
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.share-button,
+.games-link {
   width: fit-content;
-  min-height: 42px;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(240, 182, 90, 0.28);
-  border-radius: 8px;
-  background: rgba(240, 182, 90, 0.1);
-  color: var(--amber);
-  padding: 0 12px;
-  font-weight: 900;
 }
 
 .share-button {
-  width: fit-content;
   border-color: rgba(240, 182, 90, 0.5);
   background: var(--amber);
   color: #120d04;
@@ -809,6 +827,17 @@ input:focus-visible {
 
 .share-button:hover {
   background: #ffd08a;
+}
+
+.games-link {
+  border-color: rgba(57, 215, 187, 0.42);
+  background: rgba(57, 215, 187, 0.12);
+  color: var(--teal-2);
+}
+
+.games-link:hover {
+  background: rgba(142, 246, 223, 0.18);
+  color: var(--text);
 }
 
 .summary-metrics {
