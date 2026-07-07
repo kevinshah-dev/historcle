@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { ClerkAuthControls } from "@/components/ClerkAuthControls";
-import { GlobeMap } from "@/components/GlobeMap";
 import { ShareButton } from "@/components/ShareButton";
+import { WorldMap } from "@/components/WorldMap";
 import { getNewYorkDateKey } from "@/lib/daily";
 import {
   formatMiles,
@@ -250,7 +250,7 @@ export function HistorcleGame() {
       <main className="loading-shell">
         <div className="loading-card">
           <Compass aria-hidden="true" size={28} />
-          <span>Loading today's globe</span>
+          <span>Loading today's map</span>
         </div>
       </main>
     );
@@ -298,8 +298,8 @@ export function HistorcleGame() {
           </div>
         </aside>
 
-        <section className="globe-stage" aria-label="Location picker">
-          <GlobeMap
+        <section className="map-stage" aria-label="Location picker">
+          <WorldMap
             answer={{
               latitude: currentQuestion.latitude,
               longitude: currentQuestion.longitude,
@@ -327,7 +327,7 @@ export function HistorcleGame() {
                 <span>
                   {currentGuess
                     ? `${currentGuess.latitude.toFixed(2)}, ${currentGuess.longitude.toFixed(2)}`
-                    : "Place a pin on the globe"}
+                    : "Place a pin on the map"}
                 </span>
               </div>
               <button

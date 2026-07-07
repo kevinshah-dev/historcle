@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { AppProviders } from "@/components/AppProviders";
+import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
 const clerkPublishableKey =
@@ -9,7 +10,7 @@ const clerkPublishableKey =
 
 export const metadata: Metadata = {
   title: "Historcle | CloseEnough Games",
-  description: "A daily geography-history game. Read the event, place it on the globe, and score by distance.",
+  description: "A daily geography-history game. Read the event, place it on the map, and score by distance.",
   icons: {
     icon: "/icon.svg",
   },

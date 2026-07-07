@@ -77,7 +77,7 @@ export function getPerformanceLabel(score: number): string {
   if (score >= 3900) return "Sharp Cartographer";
   if (score >= 3000) return "Close Enough";
   if (score >= 2000) return "Archive Scout";
-  return "Globe Apprentice";
+  return "Map Apprentice";
 }
 
 export function getShareBand(score: number): string {
